@@ -1,17 +1,67 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User, auth  # auth serve per autenticare l'utente
+from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
-from .models import Profile
+from django.contrib.auth.decorators import login_required
+from .models import Profile, Post
+from itertools import chain
+import random
 
 
 # Create your views here.
+
+@login_required(login_url='signin')
 def index(request):
-    return render(request, 'index.html')
+    user_object = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
+    return render(request, 'index.html', {'user_profile': user_profile})
+
+
+@login_required(login_url='signin')
+def upload(request):
+    if request.method == 'POST':
+        user = request.user.username
+        image = request.FILES.get('image_upload')
+        caption = request.POST['caption']
+
+        new_post = Post.objects.create(user=user, image=image, caption=caption)
+        new_post.save()
+
+        return redirect('/')
+    else:
+        return redirect('/')
+
+
+@login_required(login_url='signin')
+def settings(request):
+    user_profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+
+        if request.FILES.get('image') is None:
+            image = user_profile.profileimg
+            bio = request.POST['bio']
+            location = request.POST['location']
+
+            user_profile.profileimg = image
+            user_profile.bio = bio
+            user_profile.location = location
+            user_profile.save()
+        if request.FILES.get('image') is not None:
+            image = request.FILES.get('image')
+            bio = request.POST['bio']
+            location = request.POST['location']
+
+            user_profile.profileimg = image
+            user_profile.bio = bio
+            user_profile.location = location
+            user_profile.save()
+
+        return redirect('settings')
+    return render(request, 'settings.html', {'user_profile': user_profile})
 
 
 def signup(request):
-    # Se il metodo della richiesta è POST, allora l'utente ha inviato i dati del form
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
@@ -19,27 +69,27 @@ def signup(request):
         password2 = request.POST['password2']
 
         if password == password2:
-            # controllo se l'username o l'email sono già presenti nel db
-            if User.objects.filter(username=username).exists():
-                messages.info(request, 'Username already taken')
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'Email Taken')
                 return redirect('signup')
-            elif User.objects.filter(email=email).exists():
-                messages.info(request, 'Email already taken')
+            elif User.objects.filter(username=username).exists():
+                messages.info(request, 'Username Taken')
                 return redirect('signup')
             else:
-                # creo l'utente
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
 
-                # log in automatico dopo la registrazione e reindirizzo al profilo
+                # log user in and redirect to settings page
+                user_login = auth.authenticate(username=username, password=password)
+                auth.login(request, user_login)
 
-                # Crea un Profilo per l'utente appena registrato
+                # create a Profile object for the new user
                 user_model = User.objects.get(username=username)
                 new_profile = Profile.objects.create(user=user_model, id_user=user_model.id)
                 new_profile.save()
-                return redirect('login')
+                return redirect('settings')
         else:
-            messages.info(request, 'Password not matching')
+            messages.info(request, 'Password Not Matching')
             return redirect('signup')
 
     else:
@@ -47,24 +97,24 @@ def signup(request):
 
 
 def login(request):
-    # Se il metodo della richiesta è POST, allora l'utente ha inviato i dati del form
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
-        # controllo se l'username o l'email sono già presenti nel db
-        if User.objects.filter(username=username).exists():
-            # log in automatico dopo la registrazione e reindirizzo al profilo
-            user = auth.authenticate(username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return redirect('profile')
-            else:
-                messages.info(request, 'Invalid credentials')
-                return redirect('/')
-        else:
-            messages.info(request, 'Invalid credentials')
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
             return redirect('/')
+        else:
+            messages.info(request, 'Credentials Invalid')
+            return redirect('signin')
 
     else:
         return render(request, 'login.html')
+
+
+@login_required(login_url='signin')
+def logout(request):
+    auth.logout(request)
+    return redirect('signin')

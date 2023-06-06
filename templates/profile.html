@@ -1,24 +1,7 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content %}
 
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-	<title>Profile - {{username}}</title>
-   <!-- <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16"> -->
-    
-    <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/color.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-
-</head>
-<body>
 <!--<div class="se-pre-con"></div>-->
 <div class="theme-layout">
 	
@@ -157,10 +140,4 @@
 
 	
 	
-	<script data-cfasync="false" src="{% static '../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js' %}"></script><script src="js/main.min.js"></script>
-	<script src="{% static 'js/script.js' %}"></script>
-
-</body>	
-
-
-</html>
+{% endblock %}
