@@ -83,14 +83,14 @@
         </div>
         <div class="post-feed">
             {% for post in posts reversed %}
-                <div class="cardd">
+                <div class="card mycard">
                     <div class="post">
 
                         <div class="post-header">
                             <h3><a href="/" class="profile-link">{{ post.user }}</a></h3>
                         </div>
 
-                        <div class="card-img-top">
+                        <div class="mycardimg">
                             <a href="{{ post.image.url }}">
                                 <img src="{{ post.image.url }}" alt="">
                             </a>
@@ -102,7 +102,13 @@
                         <div class="post-info">
                             <div>
                                 <a href="/like-post?post_id={{ post.id }}" class="btn btn-outline-primary btn-sm like-button">Like</a>
-                                <span>{{ post.no_of_likes }} likes</span>
+                                {% if post.no_of_likes == 0 %}
+                                    <span class="likes" id="likes{{ post.id }}">Be the first one to like this post</span>
+                                {% elif post.no_of_likes == 1 %}
+                                    <span class="likes" id="likes{{ post.id }}">1 person likes this post</span>
+                                {% else %}
+                                    <span class="likes" id="likes{{ post.id }}">{{ post.no_of_likes }} people like this post</span>
+                                {% endif %}
                             </div>
                         <div>
 

@@ -152,7 +152,42 @@ def like_post(request):
     post = Post.objects.get(id=post_id)
 
     # check if the user has already liked the post
-    like_filter = LikePost.objects.filter(post_id=post_id)
+    like_filter = LikePost.objects.filter(post_id=post_id, username=username).first()
+    if like_filter is None:
+        # create a new LikePost object
+        new_like = LikePost.objects.create(post_id=post_id, username=username)
+        new_like.save()
+
+        # increment the post likes
+        post.no_of_likes += 1
+        post.save()
+
+        # return the new likes count
+        return redirect('/')
+    else:
+        # delete the LikePost object
+        like_filter.delete()
+
+        # decrement the post likes
+        post.no_of_likes -= 1
+        post.save()
+
+        # return the new likes count
+        return redirect('/')
 
 
-    return None
+@login_required(login_url='login')
+def profile(request, pk):
+    # get the user profile
+    user_object = User.objects.get(username=pk)
+    user_profile = Profile.objects.get(user=user_object)
+    user_posts = Post.objects.filter(user=pk)
+    user_post_length = len(user_posts)
+
+    context = {
+        'user_object': user_object,
+        'user_profile': user_profile,
+        'user_posts': user_posts,
+        'user_post_length': user_post_length,
+    }
+    return render(request, 'profile.html', context)
