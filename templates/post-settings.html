@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container m-auto">
+
+  <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a href="/">Home</a> / Create a new post for <b>{{ user.username }}</b></h1>
+  <br>
+  <he></he>
+
+  <div class="grid lg:grid-cols-3 mt-12 gap-8">
+    <div>
+      <h3 class="text-xl mb-2">General</h3>
+      <p></p>
+    </div>
+    <div class="cardd col-span-2">
+      <form action="upload" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+          <div class="col-span-2">
+            <label for="">Post Image</label>
+            <input type="file" name="image_upload" value="" class="shadow-none bg-gray-100">
+          </div>
+          <div class="col-span-2">
+            <label for="about">Caption:</label>
+            <textarea name="caption" placeholder="caption..." class="shadow-none bg-gray-100"></textarea>
+          </div>
+            <button class="button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" name="button">Upload</button>
+        </div>
+      </form>
+    </div>
+    <br>
+
+  </div>
+
+</div>
+
+{% endblock content %}

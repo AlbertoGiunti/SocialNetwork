@@ -1,52 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-          
 
 <div class="container m-auto">
 
-    <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a href="/">Home</a> / Account <Se></Se>tting for <b>{{ user.username }}</b></h1>
-    <br>
-    <he></he>
+  <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a href="/">Home</a> / Account Settings for <b>{{ user.username }}</b></h1>
+  <br>
+  <he></he>
 
-    <div class="grid lg:grid-cols-3 mt-12 gap-8">
-        <div>
-            <h3 class="text-xl mb-2"> General</h3>
-            <p></p>
-        </div>
-        <div class="bg-white rounded-md lg:shadow-lg shadow col-span-2">
-            <form action="" method="POST" enctype="multipart/form-data">  <!-- Senza multipart/form-data non manda il form dell'immagine -->
-                {% csrf_token %}
-               <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
-
-                   <div class="col-span-2">
-                        <label for="">Profile Image</label>
-                        <img src="{{ user_profile.image.url }}" alt="" class="w-20 h-20 rounded-full">
-                        <input type="file" name="image" value="" class="shadow-none bg-gray-100">
-                    </div>
-                    <div class="col-span-2">
-                        <label for="about">Bio</label>
-                        <textarea id="bio" name="bio" rows="3"  class="shadow-none bg-gray-100">{{ user_profile.bio }}</textarea>
-                    </div>
-                    <div class="col-span-2">
-                        <label for=""> Location</label>
-                        <input type="text" name="location" value="{{ user_profile.location }}" class="shadow-none bg-gray-100">
-                    </div>
-               </div>
-
-               <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-                   <button class="p-2 px-4 rounded bg-gray-50 text-red-500"> <a href="/">Cancel</a> </button>
-                   <button type="button" class="button bg-blue-700"> Submit </button>
-               </div>
-            </form>
-        </div>
-        <br>
-
+  <div class="grid lg:grid-cols-3 mt-12 gap-8">
+    <div>
+      <h3 class="text-xl mb-2">General</h3>
+      <p></p>
     </div>
+    <div class="cardd col-span-2">
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
+          <div class="col-span-2">
+            <label for="">Profile Image</label>
+            <img src="{{ user_profile.image.url }}" alt="" id="profile-img">
+            <input type="file" name="image" value="" class="shadow-none bg-gray-100">
+          </div>
+          <div class="col-span-2">
+            <label for="about">Bio:</label>
+            <textarea id="bio" name="bio" rows="3" class="shadow-none bg-gray-100">{{ user_profile.bio }}</textarea>
+          </div>
+          <div class="col-span-2">
+            <label for="">Location:</label>
+            <input type="text" name="location" value="{{ user_profile.location }}" class="shadow-none bg-gray-100">
+          </div>
+        </div>
+
+        <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
+          <button class="p-2 px-4 rounded bg-gray-50 text-red-500"><a href="/">Cancel</a></button>
+          <button type="button" class="button bg-blue-700">Submit</button>
+        </div>
+      </form>
+    </div>
+    <br>
+
+  </div>
 
 </div>
-
-
-
 
 {% endblock content %}

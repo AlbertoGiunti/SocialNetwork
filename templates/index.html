@@ -21,7 +21,8 @@
       <a class="nav-item nav-link" href="#">Register</a> -->
       <!-- <button class="noselect">Create Post</button> -->
 <!--                <h3 style="color: white;">Hello {{request.user}}</h3>-->
-        <a href="#" id="auth-links">
+
+        <a href="post-settings" id="auth-links">
         <span></span>
         <span></span>
         <span></span>
@@ -70,55 +71,51 @@
 </div>
 </nav>
 </header>
-<main role="main" class="container">
+
+
+<main role="main" class="container-fluid">
+
+<!-- Sezione centrale -->
 <div class="row">
-<div class="col-md-8">
-
-</div>
-<div class="col-md-4">
-  <div class="content-sectionw">
-    <!-- <h3>Our Sidebar</h3>
-    <p class='text-muted'>You can put any information here you'd like.
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-light">Latest Posts</li>
-        <li class="list-group-item list-group-item-light">Announcements</li>
-        <li class="list-group-item list-group-item-light">Calendars</li>
-        <li class="list-group-item list-group-item-light">etc</li>
-      </ul>
-    </p> -->
-    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;" style="padding-top: 120px;">
-        <a id="list-group" style="text-decoration: none;" href="" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-          <!-- <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"/></svg> -->
-          <span class="fs-5 fw-semibold" id="gist-btn">Latest Gist</span>
-        </a>
-        <div class="list-group list-group-flush border-bottom scrollarea">
-          <a href="#" class="list-group-item list-group-item-action  lh-tight" aria-current="true">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">Seriously, Stop Trying to Teach Toddlers How to Code...By Desphixs
-            </strong>
-              <small>Wed</small>
-            </div>
-            <div class="col-10 mb-1 small">AS A BABY nerd, I was obsessed with Hackers. The 1995 cult movie... </div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">Its not a bug - It's a feature... by Desphixs</strong>
-              <small class="text-muted">Tues</small>
-            </div>
-            <div class="col-10 mb-1 small">When it comes to coding, everything works like a miracle, let me use that word...hahaha</div>
-          </a>
-          <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-            <div class="d-flex w-100 align-items-center justify-content-between">
-              <strong class="mb-1">I wanted to be a great programmer but...by Desphixs</strong>
-              <small class="text-muted">Mon</small>
-            </div>
-            <div class="col-10 mb-1 small">in my family trait, nobody knows anything about computers and i wanted to be the greatest computer scientist ever and...</div>
-          </a>
-
+    <div class="col-md-8">
+        <div>
+            <h3 class="section-title">Latest Posts</h3>
         </div>
-      </div>
-  </div>
-</div>
+        <div class="post-feed">
+            {% for post in posts reversed %}
+                <div class="cardd">
+                    <div class="post">
+
+                        <div class="post-header">
+                            <h3><a href="/" class="profile-link">{{ post.user }}</a></h3>
+                        </div>
+
+                        <div class="card-img-top">
+                            <a href="{{ post.image.url }}">
+                                <img src="{{ post.image.url }}" alt="">
+                            </a>
+                        </div>
+
+                        <div class="post-date">
+                            <p>{{ post.date }}</p>
+                        </div>
+                        <div class="post-info">
+                            <div>
+                                <a href="/like-post?post_id={{ post.id }}" class="btn btn-outline-primary btn-sm like-button">Like</a>
+                                <span>{{ post.no_of_likes }} likes</span>
+                            </div>
+                        <div>
+
+                        <div class="post-content">
+                             <p>
+                            <a href="/"><strong>{{ post.user }}:</strong></a> {{ post.caption }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
 

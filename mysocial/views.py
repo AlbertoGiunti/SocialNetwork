@@ -3,21 +3,24 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Post
+from .models import Profile, Post, LikePost
 from itertools import chain
 import random
 
 
 # Create your views here.
 
-@login_required(login_url='signin')
+@login_required(login_url='login')
 def index(request):
     user_object = User.objects.get(username=request.user.username)
     user_profile = Profile.objects.get(user=user_object)
-    return render(request, 'index.html', {'user_profile': user_profile})
+
+    # get all posts from users that the current user is following
+    posts = Post.objects.all()
+    return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
 
-@login_required(login_url='signin')
+@login_required(login_url='login')
 def upload(request):
     if request.method == 'POST':
         user = request.user.username
@@ -32,7 +35,7 @@ def upload(request):
         return redirect('/')
 
 
-@login_required(login_url='signin')
+@login_required(login_url='login')
 def settings(request):
     user_profile = Profile.objects.get(user=request.user)
 
@@ -108,13 +111,48 @@ def login(request):
             return redirect('/')
         else:
             messages.info(request, 'Credentials Invalid')
-            return redirect('signin')
+            return redirect('login')
 
     else:
         return render(request, 'login.html')
 
 
-@login_required(login_url='signin')
+@login_required(login_url='login')
 def logout(request):
     auth.logout(request)
-    return redirect('signin')
+    return redirect('login')
+
+
+@login_required(login_url='login')
+def post_settings(request):
+    return render(request, 'post-settings.html')
+
+
+@login_required(login_url='login')
+def upload(request):
+    if request.method == 'POST':
+        user = request.user.username
+        image = request.FILES.get('image_upload')
+        caption = request.POST['caption']
+
+        new_post = Post.objects.create(user=user, image=image, caption=caption)
+        new_post.save()
+
+        return redirect('/')
+    else:
+        return redirect('/')
+
+
+@login_required(login_url='login')
+def like_post(request):
+    # get the post id and username from the request
+    username = request.user.username
+    post_id = request.GET.get('post_id')
+
+    post = Post.objects.get(id=post_id)
+
+    # check if the user has already liked the post
+    like_filter = LikePost.objects.filter(post_id=post_id)
+
+
+    return None
