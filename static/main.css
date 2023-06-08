@@ -260,9 +260,7 @@ font-size: 18px;
   } */
 
   #profile-img{
-    margin-top: 20px;
-    box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.486);
-    border-radius: 50px;
+
   }
 
 
@@ -288,3 +286,10 @@ font-size: 18px;
   text-align: center;
   font-family: 'Poppins', sans-serif;
 }
+
+.profile-picture{
+    margin-top: 20px;
+    box-shadow: 0 14px 18px 0 rgba(0, 0, 0, 0.486);
+    border-radius: 50px;
+}
+

@@ -15,6 +15,9 @@
         {% if user.is_authenticated %}
       <a class="nav-item nav-link" href="/">MySocial</a>
     </div>
+    <div class="navbar-nav mr-auto">
+        <a class="nav-item nav-link" href="/profile/{{ user.username }}"><img src="{{ user_profile.profileimg.url }}" class="profile-picture" alt="Can't load"></a>
+    </div>
     <!-- Navbar Right Side -->
     <div class="navbar-nav">
       <!-- <a class="nav-item nav-link" href="#">Login</a>
