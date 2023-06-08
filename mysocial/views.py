@@ -242,3 +242,14 @@ def follow(request):
 
     else:
         return redirect('/')
+
+
+@login_required(login_url='login')
+def search(request):
+    user_object = User.objects.get(username=request.user.username)
+    user_profile = Profile.objects.get(user=user_object)
+
+    if request.method == 'POST':
+        username = request.POST['username']
+
+    return render(request, 'search.html')

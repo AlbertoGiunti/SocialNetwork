@@ -3,62 +3,56 @@
 {% block content %}
 <div class="container mx-auto">
     <div class="mt-8">
-        <a href="" class="auth-links">Home</a>
+        <a href="#" class="auth-links">Home</a>
         <img src="{{ user_profile.profileimg.url }}" alt="Profile Picture" class="profile-picture">
         <h1 class="text-2xl leading-none text-gray-900 tracking-tight">{{ user_object.username }}'s Profile</h1>
         <p class="text-gray-600">{{ user_profile.bio }}</p>
     </div>
 
-     <div class="mt-8">
-     <form action="/follow" method="POST">
-     {% csrf_token %}
-           <div class="add-btn">
-					<span style="color: white; font-size: 27px; margin-right: 520px;"><b><u><a href="/">Home</a></u></b></span>
+    <div class="mt-8">
+        <form action="/follow" method="POST">
+            {% csrf_token %}
+            <div class="add-btn">
+                <span class="btn-text"><b><u><a href="/">Home</a></u></b></span>
 
-					{% if user_post_length == 0 %}
-					<span style="color: white; font-size: 27px;"><b>No Post</b></span>
-					{% elif user_post_length == 1 %}
-					<span style="color: white; font-size: 27px;"><b>{{user_post_length}} Post</b></span>
-					{% else %}
-					<span style="color: white; font-size: 27px;"><b>{{user_post_length}} Posts</b></span>
-					{% endif %}
+                {% if user_post_length == 0 %}
+                <span class="btn-text"><b>No Post</b></span>
+                {% elif user_post_length == 1 %}
+                <span class="btn-text"><b>{{ user_post_length }} Post</b></span>
+                {% else %}
+                <span class="btn-text"><b>{{ user_post_length }} Posts</b></span>
+                {% endif %}
 
-					{% if user_followers == 0 or user_followers == 1 %}
-					<span style="color: white; font-size: 27px;"><b>{{user_followers}} follower</b></span>
-					{% else %}
-					<span style="color: white; font-size: 27px;"><b>{{user_followers}} followers</b></span>
-					{% endif %}
+                {% if user_followers == 0 or user_followers == 1 %}
+                <span class="btn-text"><b>{{ user_followers }} follower</b></span>
+                {% else %}
+                <span class="btn-text"><b>{{ user_followers }} followers</b></span>
+                {% endif %}
 
-					<span style="color: white; font-size: 27px;"><b>{{user_following}} following</b></span>
+                <span class="btn-text"><b>{{ user_following }} following</b></span>
 
-					<input type="hidden" value="{{user.username}}" name="follower" />
-					<input type="hidden" value="{{user_object.username}}" name="user" />
+                <input type="hidden" value="{{ user.username }}" name="follower" />
+                <input type="hidden" value="{{ user_object.username }}" name="user" />
 
-                    <!-- Se è il suo profilo vede il bottone per modificare le impostazioni, altrimenti vede il bottone per seguire o smettere di seguire -->
-					{% if user_object.username == user.username %}
-					<a href="/settings" data-ripple="">Account Settings</a>
-					{% else %}
-					<a data-ripple=""><button type="submit" style="background-color: #ffc0cb; border: #ffc0cb;">{{ button_text }}</button></a>
-					{% endif %}
-
-					</div>
-
-
-
-     </form>
-     </div>
-
+                {% if user_object.username == user.username %}
+                <a href="/settings" data-ripple="">Account Settings</a>
+                {% else %}
+                <a data-ripple=""><button type="submit">{{ button_text }}</button></a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
 
     <div class="mt-8">
         <h2 class="text-xl font-medium mb-2">Posts</h2>
         {% if user_posts %}
             <div class="grid grid-cols-3 gap-4">
                 {% for post in user_posts %}
-                    <div class="bg-white rounded-lg shadow-md">
-                        <img src="{{ post.image.url }}" alt="Post Image" class="w-full h-40 object-cover rounded-t-lg">
-                        <div class="p-4">
-                            <p class="text-gray-800">{{ post.caption }}</p>
-                            <p class="text-gray-600">Likes: {{ post.no_of_likes }}</p>
+                    <div class="post-card">
+                        <img src="{{ post.image.url }}" alt="Post Image" class="post-image">
+                        <div class="post-content">
+                            <p class="post-caption">{{ post.caption }}</p>
+                            <p class="post-likes">Likes: {{ post.no_of_likes }}</p>
                         </div>
                     </div>
                 {% endfor %}
@@ -67,6 +61,5 @@
             <p>No posts found.</p>
         {% endif %}
     </div>
-
 </div>
 {% endblock content %}
