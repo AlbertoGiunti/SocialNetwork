@@ -23,7 +23,7 @@ pillow==9.5.0
 # sqlite==3.41.2
 sqlparse==0.4.3
 # tk==8.6.12
-tzdata==2023c
+tzdata==2023.3
 # wheel==0.38.4
 whitenoise==6.4.0
 # xz==5.4.2
