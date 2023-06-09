@@ -29,6 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['socialnetwork-production-da22.up.railway.app', '127.0.0.1',]
 
+CSRF_TRUSTED_ORIGINS = ['https://socialnetwork-production-da22.up.railway.app',]
+
+CORS_ORIGIN_WHITELIST = ['https://socialnetwork-production-da22.up.railway.app',]
+
 
 # Application definition
 
