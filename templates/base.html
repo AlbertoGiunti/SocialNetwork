@@ -35,8 +35,23 @@
         {% endif %}
     </div>
 
-    {% block content %}
-    {% endblock %}
+    <header>
+        <!-- Includi qui l'intestazione comune del tuo progetto -->
+    </header>
+
+    <main>
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="footer bg-dark mt-5 py-3">
+    <div class="container text-center">
+        <p>&copy; 2023 MySocial. All rights reserved.</p>
+        <a href="/admin" class="footer-link">Admin page</a>
+    </div>
+</footer>
 
 
     <!-- Bootstrap JS -->

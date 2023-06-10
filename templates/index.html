@@ -1,143 +1,98 @@
 {% extends 'base.html' %}
 
+{% block title %}Home - MySocial{% endblock %}
+
 {% block content %}
-
-<header class="site-header">
-<nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-<div class="container">
-  <div class="collapse navbar-collapse" id="navbarToggle">
-    <div class="navbar-nav mr-auto">
-      <a class="nav-item nav-link" href="/">MySocial</a>
-    </div>
-         <!-- Aggiungi la search bar -->
-  <form action="/search" method="POST" class="form-inline ml-auto">
-  {% csrf_token %}
-    <input class="form-control mr-sm-2" type="text" name="username" placeholder="Search for username..." aria-label="Search">&nbsp;&nbsp;
-      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-  </form>
-
-    <!-- Navbar Right Side -->
-    <div class="navbar-nav">
-      <!-- <a class="nav-item nav-link" href="#">Login</a>
-      <a class="nav-item nav-link" href="#">Register</a> -->
-      <!-- <button class="noselect">Create Post</button> -->
-<!--                <h3 style="color: white;">Hello {{request.user}}</h3>-->
-
-        <a href="/post-settings" id="auth-links">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Create Post
-    </a>
-        <a href="/settings" id="auth-links">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Account Settings
-    </a>
-        <a href="/logout" id="auth-links">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Logout
-    </a>
-    <a href="/profile/{{ user.username }}" id="auth-links">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Profile
-    </a>
-
-    </div>
-  </div>
-</div>
-</nav>
-</header>
-
-
-<main role="main" class="container-fluid">
-
-
-<div class="row">
-    <!-- Sezione centrale -->
-    <div class="col-md-7">
-        <div>
-            <h3 class="section-title">Latest Posts</h3>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">MySocial</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <form class="d-flex" action="/search" method="POST">
+                             {% csrf_token %}
+                            <input class="form-control me-2" type="text" name="username" placeholder="Search users" aria-label="Search">
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </form>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile/{{ user.username }}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post-settings">Create Post</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="post-feed">
-            {% for post in posts reversed %}
-                <div class="card mycard">
-                    <div class="post">
-                        <div class="post-header">
-                            <h3><a href="/profile/{{ post.user }}" class="profile-link">{{ post.user }}</a></h3>
-                        </div>
-                        <div class="mycardimg">
-                            <img src="{{ post.image.url }}" alt="">
-                        </div>
-                        <div class="post-date">
-                            <p>{{ post.date }}</p>
-                        </div>
-                        <div class="post-info">
-                            <div>
-                                <a href="/like-post?post_id={{ post.id }}" class="btn btn-outline-primary btn-sm like-button">Like</a>
-                                {% if post.no_of_likes == 0 %}
-                                    <span class="likes" id="likes{{ post.id }}">Be the first one to like this post</span>
-                                {% elif post.no_of_likes == 1 %}
-                                    <span class="likes" id="likes{{ post.id }}">1 person likes this post</span>
-                                {% else %}
-                                    <span class="likes" id="likes{{ post.id }}">{{ post.no_of_likes }} people like this post</span>
-                                {% endif %}
+    </nav>
+
+    <!-- Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Posts from followed users -->
+            <div class="col-md-8">
+                <h2>NEWSFEED</h2>
+                {% for post in posts reversed %}
+                    <div class="card mycard">
+                        <div class="post">
+                            <div class="post-header">
+                                <h3><a href="/profile/{{ post.user }}" class="profile-link">{{ post.user }}</a></h3>
+                            </div>
+                            <div class="mycardimg">
+                                <img src="{{ post.image.url }}" alt="">
+                            </div>
+                            <div class="post-date">
+                                <p>{{ post.date }}</p>
+                            </div>
+                            <div class="post-info">
+                                <div>
+                                    <a href="/like-post?post_id={{ post.id }}" class="btn btn-outline-primary btn-sm like-button">Like</a>
+                                    {% if post.no_of_likes == 0 %}
+                                        <span class="likes" id="likes{{ post.id }}">Be the first one to like this post</span>
+                                    {% elif post.no_of_likes == 1 %}
+                                        <span class="likes" id="likes{{ post.id }}">1 person likes this post</span>
+                                    {% else %}
+                                        <span class="likes" id="likes{{ post.id }}">{{ post.no_of_likes }} people like this post</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p>
+                                    <a href="/"><strong>{{ post.user }}:</strong></a> {{ post.caption }}
+                                </p>
                             </div>
                         </div>
-                        <div class="post-content">
-                            <p>
-                                <a href="/"><strong>{{ post.user }}:</strong></a> {{ post.caption }}
-                            </p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Suggested profiles to follow -->
+            <div class="col-md-4">
+                <h2>Suggested profiles to follow</h2>
+                <!-- Add code here to display suggested profiles -->
+                {% for suggestion in suggestions_username_profile_list %}
+                    <div class="row">
+                        <div class="col-2">
+                            <a href="/profile/{{ suggestion.user }}" ><img class="round-profile-picture" src="{{ suggestion.profileimg.url }}" alt="No photo yet"></a>
+                        </div>
+                        <div class="col-7">
+                            <p class="suggested-user">@{{ suggestion.user }}</p>
+                        </div>
+                        <div class="col-sm-3 text-align-center">
+                            <a href="/profile/{{suggestion.user}}" class="btn btn-primary btn-block">Visualizza profilo</a>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
 
-    <!-- Sezione laterale -->
-    <div class="col-md-5">
-        <div class="row">
-            <div class="col-12">
-                <h3 class="section-title">Users you can follow</h3>
-            </div>
-        </div>
-        {% for suggestion in suggestions_username_profile_list %}
-            <div class="row">
-                <div class="col-2">
-                    <a href="/profile/{{ suggestion.user }}" ><img class="round-profile-picture" src="{{ suggestion.profileimg.url }}" alt="No photo yet"></a>
-                </div>
-                <div class="col-7">
-                    <p class="suggested-user">@{{ suggestion.user }}</p>
-                </div>
-                <div class="col-sm-3 text-align-center">
-                    <a href="/profile/{{users.user}}" class="btn btn-primary btn-block">Visualizza profilo</a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-</div>
-
-
-
-<footer class="" >
-  <ul class="nav justify-content-center border-bottom"  style="margin-top: 60px;">
-    <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
-    <li class="nav-item"><a href="admin/" class="nav-link px-2 text-muted">Admin</a></li>
-  </ul>
-  <p class="text-center text-muted">Alberto Giunti - MySocial</p>
-</footer>
-
-</main>
-
-{% endblock content %}
+{% endblock %}
