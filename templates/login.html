@@ -1,33 +1,24 @@
 {% extends 'base.html' %}
 
-
+{% block title %}Login - MySocial{% endblock %}
 
 {% block content %}
-
-
-    <div class="content-section">
-        <div class="text-center">
-            <h1 class="text-4xl font-bold">Login</h1>
-        </div>
-
-        <form action="" method="POST">
-                    {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username
-                    <input type="text" name="username" placeholder="Username" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
-                </label>
+    <div class="container login-container">
+        <h2>Login</h2>
+        <form action="" method="POST" class="mt-3">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label login-form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
             </div>
-            <div class="form-group">
-                <label for="password">Password:
-                    <input type="password" name="password" placeholder="Password" class="bg-gray-200 mb-2 shadow-none dark:bg-gray-800" style="border: 1px solid #d3d5d8 !important;">
-                </label>
+            <div class="mb-3">
+                <label for="password" class="form-label login-form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
             </div>
-            <button type="submit" class="bg-gradient-to-br from-pink-500 py-3 rounded-md text-white text-xl to-red-400 w-full">Login</button>
-            <div class="text-center mt-5 space-x-2">
-                <p class="text-base"> Not registered? <a href="/signup" class=""> Create an account </a></p>
-            </div>
+            <button type="submit" class="btn btn-primary login-btn-primary">Login</button>
         </form>
+        <p class="mt-3">
+            Don't have an account? <a href="/signup" class="login-link">Sign up</a>
+        </p>
     </div>
-
-
-{% endblock content %}
+{% endblock %}

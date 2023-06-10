@@ -99,3 +99,118 @@
     font-size: 14px;
     color: #f8f9fa;
 }
+
+
+/* Stili per la pagina di login */
+.login-container {
+    margin-top: 5rem;
+}
+
+.login-form-label {
+    font-weight: bold;
+}
+
+.login-btn-primary {
+    margin-top: 1rem;
+}
+
+.login-mt-3 {
+    margin-top: 1rem;
+}
+
+.login-link {
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Stili per la pagina principale */
+.navbar {
+    /* ... stili per la navbar ... */
+}
+
+
+/* Stili per la pagina di signup */
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.signup-container h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.signup-form-label {
+  font-weight: bold;
+}
+
+.signup-btn-primary {
+  width: 100%;
+}
+
+.signup-link {
+  color: #007bff;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+/* Styles for Settings Page */
+
+.h1-account-settings {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-top: 1.5rem;
+}
+
+.account-settings-title {
+  text-decoration: none;
+  color: indigo;
+}
+
+.account-settings-title:hover {
+  text-decoration: underline;
+}
+
+
+.h2-account-settings {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.form-account-settings {
+  margin-top: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-control {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  margin-right: 10px;
+}
+
+.btn-secondary {
+  margin-right: 10px;
+}
+
+
+.container-account-settings{
+     max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}

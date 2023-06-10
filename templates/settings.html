@@ -1,47 +1,40 @@
 {% extends 'base.html' %}
 
+{% block title %}Settings - MySocial{% endblock %}
+
 {% block content %}
-
-<div class="container m-auto">
-
-  <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3"><a href="/">Home</a> / Account Settings for <b>{{ user.username }}</b></h1>
-  <br>
-  <he></he>
-
-  <div class="grid lg:grid-cols-3 mt-12 gap-8">
-    <div>
-      <h3 class="text-xl mb-2">General</h3>
-      <p></p>
-    </div>
-    <div class="cardd col-span-2">
-      <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
-          <div class="col-span-2">
-            <label for="">Profile Image</label>
-            <img src="{{ user_profile.image.url }}" alt="" id="profile-img">
-            <input type="file" name="image" value="" class="shadow-none bg-gray-100">
-          </div>
-          <div class="col-span-2">
-            <label for="about">Bio:</label>
-            <textarea id="bio" name="bio" rows="3" class="shadow-none bg-gray-100">{{ user_profile.bio }}</textarea>
-          </div>
-          <div class="col-span-2">
-            <label for="">Location:</label>
-            <input type="text" name="location" value="{{ user_profile.location }}" class="shadow-none bg-gray-100">
-          </div>
+    <div class="container container-account-settings">
+        <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3 h1-account-settings"><a href="/" class="account-settings-title">Home</a> / Account Settings for <a href="/profile/{{ user.username }}" class="account-settings-title"><b>{{ user.username }}</b></a></h1>
+        <br>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="h2-account-settings">Profile Settings</h2>
+                <form method="POST" enctype="multipart/form-data" class="form-account-settings">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="{{ user_profile.user.username }}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="{{ user_profile.user.email }}" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="profile-image" class="form-label">Profile Image</label>
+                        <input type="file" class="form-control" id="profile-image" name="image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="bio" class="form-label">Bio</label>
+                        <textarea class="form-control" id="bio" name="bio" rows="3">{{ user_profile.bio }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Location</label>
+                        <input type="text" class="form-control" id="location" name="location" value="{{ user_profile.location }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <a href="/profile/{{ user_profile.user.username }}" class="btn btn-secondary">Back to Profile</a>
+                </form>
+            </div>
         </div>
-
-        <div class="bg-gray-10 p-6 pt-0 flex justify-end space-x-3">
-          <button class="p-2 px-4 rounded bg-gray-50 text-red-500"><a href="/profile/{{ user_profile.user }}">Cancel</a></button>
-          <button type="button" class="button bg-blue-700">Submit</button>
-        </div>
-      </form>
     </div>
-    <br>
-
-  </div>
-
-</div>
-
-{% endblock content %}
+{% endblock %}
