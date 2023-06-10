@@ -50,7 +50,7 @@
                                 <img src="{{ post.image.url }}" alt="">
                             </div>
                             <div class="post-date">
-                                <p>{{ post.date }}</p>
+                                <p>{{ post.created_at }}</p>
                             </div>
                             <div class="post-info">
                                 <div>
@@ -80,14 +80,14 @@
                 <!-- Add code here to display suggested profiles -->
                 {% for suggestion in suggestions_username_profile_list %}
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <a href="/profile/{{ suggestion.user }}" ><img class="round-profile-picture" src="{{ suggestion.profileimg.url }}" alt="No photo yet"></a>
                         </div>
-                        <div class="col-7">
+                        <div class="col-5">
                             <p class="suggested-user">@{{ suggestion.user }}</p>
                         </div>
-                        <div class="col-sm-3 text-align-center">
-                            <a href="/profile/{{suggestion.user}}" class="btn btn-primary btn-block">Visualizza profilo</a>
+                        <div class="col-4 text-align-center">
+                            <a href="/profile/{{suggestion.user}}" class="btn btn-primary btn-block">Show Profile</a>
                         </div>
                     </div>
                 {% endfor %}

@@ -2,22 +2,22 @@
 
 {% block content %}
 
-<div class="container">
-  <h2>Risultati della ricerca</h2>
+<div class="container-fluid container-search">
+  <h2 class="h2-search">Risultati della ricerca</h2>
 
-    {% for users in username_profile_list  %}
+    {% for user in username_profile_list %}
     <section class="search-result-item">
         <div class="row">
             <div class="col-sm-2">
-                <a href="/profile/{{users.user}}"><img class="profile_pic" src="{{users.profileimg.url}}" alt=""></a>
+                <a href="/profile/{{ user.user }}"><img class="profile_pic" src="{{ user.profileimg.url }}" alt=""></a>
             </div>
             <div class="col-sm-7">
-                <h3><a class="search" href="/profile/{{users.user}}">@{{users.user}}</a></h3>
-                <p class="search-bio">{{users.bio}}</p>
-                <p class="search-location" >{{ users.location }}</p>
+                <h3 class="h3-search"><a class="search" href="/profile/{{ user.user }}">@{{ user.user }}</a></h3>
+                <p class="search-bio">{{ user.bio }}</p>
+                <p class="search-location">{{ user.location }}</p>
             </div>
             <div class="col-sm-3 text-align-center">
-                <a href="/profile/{{users.user}}" class="btn btn-primary btn-block">Visualizza profilo</a>
+                <a href="/profile/{{ user.user }}" class="btn btn-primary btn-block">Visualizza profilo</a>
             </div>
         </div>
     </section>
