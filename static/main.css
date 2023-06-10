@@ -17,6 +17,12 @@ body {
     margin: 0;
   }
 
+  .container{
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+}
+
   .bg-steel {
     /* background-color: #1a1a1a; */
     background: linear-gradient(270deg,  rgb(49, 0, 33) 0%, rgb(46, 0, 119) 100%);
