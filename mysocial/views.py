@@ -177,7 +177,11 @@ def upload(request):
         new_post = Post.objects.create(user=user, image=image, caption=caption)
         new_post.save()
 
-        return redirect('/')
+        if image is not None:
+            return redirect('/')
+        else:
+            messages.info(request, 'Image not found')
+            return redirect('post-settings.html')
     else:
         return redirect('/')
 

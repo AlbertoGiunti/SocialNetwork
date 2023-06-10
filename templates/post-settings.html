@@ -13,11 +13,11 @@
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="about" class="form-label">Caption:</label>
-                        <textarea class="form-control" id="caption" name="caption" rows="3">{{ post.caption }}</textarea>
+                        <textarea required class="form-control" id="caption" name="caption" rows="3">{{ post.caption }}</textarea>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Post Image:</label>
-                        <input type="file" class="form-control" id="image" name="image_upload" value="">
+                        <input required type="file" class="form-control" id="image" name="image_upload" value="">
                     </div>
                     <button type="submit" name="button" class="btn btn-primary">Upload</button>
                     <a href="/" class="btn btn-secondary">Cancel</a>
