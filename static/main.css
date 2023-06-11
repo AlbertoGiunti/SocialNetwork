@@ -99,7 +99,6 @@
   color: #f8f9fa;
 }
 
-
 /* Stili per la pagina di login */
 .login-container {
   margin-top: 5rem;
@@ -129,31 +128,6 @@
 .navbar {
   /* ... stili per la navbar ... */
 }
-
-/* Aggiungi questo CSS al tuo file di stile */
-
-.like-button {
-  display: inline-block;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: red;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.like-button:hover {
-  background-color: indianred;
-}
-
-.like-button.active {
-  background-color: darkred;
-  color: white;
-}
-
-
-
 
 /* Stili per la pagina di signup */
 .signup-container {
@@ -204,7 +178,6 @@
   text-decoration: underline;
 }
 
-
 .h2-account-settings {
   font-size: 24px;
   font-weight: bold;
@@ -231,13 +204,11 @@
   margin-right: 10px;
 }
 
-
-.container-account-settings{
+.container-account-settings {
   max-width: 960px;
   margin: 0 auto;
   padding: 20px;
 }
-
 
 /* CSS for Create/Edit Post page */
 .container.create-edit-post-container {
@@ -300,7 +271,6 @@
   background-color: #444e54;
   border-color: #444e54;
 }
-
 
 /* Sezione profilo */
 .container-profile {
@@ -419,7 +389,6 @@
     max-width: 100%;
   }
 }
-
 
 /* Stili del search */
 
