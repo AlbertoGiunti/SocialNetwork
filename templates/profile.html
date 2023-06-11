@@ -3,40 +3,42 @@
 {% block title %}Profile - MySocial{% endblock %}
 
 {% block content %}
-    <div class="container-fluid profile-container">
-        <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3 h1-profile"><a href="/" class="account-settings-title">Home</a> / {{ user_object.username }}'s Profile</h1>
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <div class="profile-info">
-                    <div class="profile-picture">
-                        <img src="{{ user_profile.profileimg.url }}" alt="Profile Picture">
-                    </div>
-                    <h2 class="h2-profile">{{ user_object.username }}</h2>
+<div class="container profile-container">
+    <h1 class="text-2xl leading-none text-gray-900 tracking-tight mt-3 h1-profile">
+        <a href="/" class="account-settings-title">Home</a> / {{ user_object.username }}'s Profile
+    </h1>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="profile-info">
+                <div class="profile-picture">
+                    <img src="{{ user_profile.profileimg.url }}" alt="Profile Picture">
                 </div>
+                <h2 class="h2-profile">{{ user_object.username }}</h2>
             </div>
-            <div class="col-md-4">
-                <p>Email: {{ user_object.email }}</p>
-                <p>Location: {{ user_profile.location }}</p>
-                <p>Bio: {{ user_profile.bio }}</p>
-                    <form action="/follow" method="POST">
-                        {% csrf_token %}
-                         <input type="hidden" value="{{ user.username }}" name="follower" />
-                         <input type="hidden" value="{{ user_object.username }}" name="user" />
-                        {% if user_object.username == user.username %}
-                            <div class="profile-actions">
-                                <a href="/settings" class="btn btn-secondary">Account Settings</a>
-                                <a href="/post-settings" class="btn btn-secondary">Create Post</a>
-                            </div>
-                        {% else %}
-                            <div class="profile-actions">
-                                <a data-ripple=""><button type="submit">{{ button_text }}</button></a>
-                            </div>
-                        {% endif %}
-                    </form>
-            </div>
-            <div class="col-md-4">
-                <div class="profile-stats">
-                    <h2 class="h2-profile">Profile Statistics</h2>
+        </div>
+        <div class="col-md-4">
+            <p>Email: {{ user_object.email }}</p>
+            <p>Location: {{ user_profile.location }}</p>
+            <p>Bio: {{ user_profile.bio }}</p>
+            <form action="/follow" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{ user.username }}" name="follower" />
+                <input type="hidden" value="{{ user_object.username }}" name="user" />
+                {% if user_object.username == user.username %}
+                    <div class="profile-actions">
+                        <a href="/settings" class="btn btn-secondary">Account Settings</a>
+                        <a href="/post-settings" class="btn btn-secondary">Create Post</a>
+                    </div>
+                {% else %}
+                    <div class="profile-actions">
+                        <button type="submit" class="btn btn-primary">{{ button_text }}</button>
+                    </div>
+                {% endif %}
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="profile-stats">
+                <h2 class="h2-profile">Profile Statistics</h2>
                 <div class="row">
                     <div class="col-12">
                         {% if user_post_length == 0 %}
@@ -50,11 +52,11 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                    {% if user_followers == 0 or user_followers == 1 %}
-                        <span class="btn-text"><b>{{ user_followers }} Follower</b></span>
-                    {% else %}
-                        <span class="btn-text"><b>{{ user_followers }} Followers</b></span>
-                    {% endif %}
+                        {% if user_followers == 0 or user_followers == 1 %}
+                            <span class="btn-text"><b>{{ user_followers }} Follower</b></span>
+                        {% else %}
+                            <span class="btn-text"><b>{{ user_followers }} Followers</b></span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row">
@@ -62,36 +64,38 @@
                         <span class="btn-text"><b>{{ user_following }} Following</b></span>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <div class="post-section">
-                    <h2 class="h2-profile">Posts</h2>
-                    <div class="row">
-                        {% if user_posts %}
-                            {% for post in user_posts %}
-                                <div class="col-md-6">
-                                    <div class="post">
-                                        <div class="post-image">
-                                            <img src="{{ post.image.url }}" alt="Post Image">
-                                        </div>
-                                        <div class="post-description">
-                                            <p>{{ post.caption }}</p>
-                                        </div>
-                                        <div class="profile-post-likes">
-                                            <p class="post-likes">Likes: {{ post.no_of_likes }}</p>
-                                        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="post-section">
+                <h2 class="h2-profile">Posts</h2>
+                <div class="row">
+                    {% if user_posts %}
+                        {% for post in user_posts %}
+                            <div class="col-md-6">
+                                <div class="post">
+                                    <div class="post-image">
+                                        <img class="img-fluid" src="{{ post.image.url }}" alt="Post Image">
+                                    </div>
+                                    <div class="post-description">
+                                        <p>{{ post.caption }}</p>
+                                    </div>
+                                    <div class="profile-post-likes">
+                                        <p class="post-likes">Likes: {{ post.no_of_likes }}</p>
                                     </div>
                                 </div>
-                            {% endfor %}
-                        {% else %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-md-12">
                             <p>No posts found.</p>
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
